@@ -1,4 +1,4 @@
-name: Build Keyboard Firmware
+name: Build ZMK Firmware
 
 on:
   push:
@@ -7,5 +7,4 @@ on:
 
 jobs:
   build:
-    uses: sekigon-gonnoc/vial-keymap-c-editor/.github/workflows/build-keymap.yml@main
-    
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
