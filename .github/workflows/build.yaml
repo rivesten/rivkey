@@ -1,28 +1,10 @@
-name: Build Keyboard Firmware
+name: Build ZMK Firmware
 
 on:
   push:
-  workflow_dispatch:
+    branches:
+      - "**"
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - name: Build Firmware
-        uses: rivkey/rivkey-action@main
-        with:
-          config: rivkey.json
-
-      - name: Upload Firmware
-        uses: actions/upload-artifact@v4
-        with:
-          name: rivkey-firmware
-          path: |
-            *.hex
-            *.bin
-            *.uf2
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
