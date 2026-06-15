@@ -1,12 +1,33 @@
+name: Build Keyboard Firmware
 
-include:
-  - board: akdk_bt1
-    shield: rivkey_left
-    snippet: studio-rpc-usb-uart
-    cmake-args: -DCONFIG_ZMK_STUDIO=y
-  - board: akdk_bt1
-    shield: rivkey_right
-    snippet: studio-rpc-usb-uart
-    cmake-args: -DCONFIG_ZMK_STUDIO=y
-  - board: akdk_bt1
-    shield: settings_reset
+on:
+  push:
+    paths:
+      - '.github/workflows/build.yaml'
+      - 'rivkey.json'
+      - '設定/**'
+      - 'ボード/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Build Firmware
+        uses: sekigon-gonnoc/rivkey-action@main
+        with:
+          config: rivkey.json
+
+      - name: Upload Firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: rivkey-firmware
+          path: |
+            *.hex
+            *.bin
+            *.uf2
