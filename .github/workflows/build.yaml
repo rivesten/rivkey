@@ -2,11 +2,6 @@ name: Build Keyboard Firmware
 
 on:
   push:
-    paths:
-      - '.github/workflows/build.yaml'
-      - 'rivkey.json'
-      - '設定/**'
-      - 'ボード/**'
   workflow_dispatch:
 
 jobs:
@@ -19,7 +14,7 @@ jobs:
           submodules: recursive
 
       - name: Build Firmware
-        uses: sekigon-gonnoc/rivkey-action@main
+        uses: rivkey/rivkey-action@main
         with:
           config: rivkey.json
 
